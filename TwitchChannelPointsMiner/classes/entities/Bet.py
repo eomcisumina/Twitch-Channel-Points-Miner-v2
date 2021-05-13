@@ -1,6 +1,6 @@
 import copy
 from enum import Enum, auto
-from random import uniform
+from random import uniform, random
 
 from millify import millify
 
@@ -12,6 +12,7 @@ class Strategy(Enum):
     HIGH_ODDS = auto()
     PERCENTAGE = auto()
     SMART = auto()
+    RANDOM = auto()
 
     def __str__(self):
         return self.name
@@ -249,6 +250,11 @@ class Bet(object):
                 if difference < self.settings.percentage_gap
                 else self.__return_choice(OutcomeKeys.TOTAL_USERS)
             )
+        elif self.settings.strategy == Strategy.RANDOM:
+            if random > 0.5:
+                self.decision["choice"] = 'A'
+            else:
+                self.decision["choice"] = 'B'
 
         if self.decision["choice"] is not None:
             index = char_decision_as_index(self.decision["choice"])
