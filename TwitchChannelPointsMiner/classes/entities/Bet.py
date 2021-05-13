@@ -1,6 +1,7 @@
 import copy
 from enum import Enum, auto
 from random import uniform, random
+import os
 
 from millify import millify
 
@@ -251,10 +252,18 @@ class Bet(object):
                 else self.__return_choice(OutcomeKeys.TOTAL_USERS)
             )
         elif self.settings.strategy == Strategy.RANDOM:
-            if random() > 0.5:
-                self.decision["choice"] = 'A'
-            else:
-                self.decision["choice"] = 'B'
+            try:
+                if os.path.exists('choiceA'):
+                    self.decision['choice'] = 'B'
+                    os.remove('choiceA')
+                else:
+                    self.decision['choice'] = 'A'
+                    open('choiceA','w').close()
+            except Exception as e:
+                if random() > 0.5:
+                    self.decision["choice"] = 'A'
+                else:
+                    self.decision["choice"] = 'B'
 
         if self.decision["choice"] is not None:
             index = char_decision_as_index(self.decision["choice"])
