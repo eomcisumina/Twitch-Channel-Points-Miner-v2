@@ -251,7 +251,7 @@ class Bet(object):
                 else self.__return_choice(OutcomeKeys.TOTAL_USERS)
             )
         elif self.settings.strategy == Strategy.RANDOM:
-            if random > 0.5:
+            if random() > 0.5:
                 self.decision["choice"] = 'A'
             else:
                 self.decision["choice"] = 'B'
