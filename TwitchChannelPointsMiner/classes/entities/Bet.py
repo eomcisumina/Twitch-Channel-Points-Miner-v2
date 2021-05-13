@@ -260,6 +260,7 @@ class Bet(object):
                     self.decision['choice'] = 'A'
                     open('choiceA','w').close()
             except Exception as e:
+                print(f'random coord fail, {e}')
                 if random() > 0.5:
                     self.decision["choice"] = 'A'
                 else:
