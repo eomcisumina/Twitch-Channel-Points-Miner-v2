@@ -265,7 +265,7 @@ class WebSocketsPool:
                                     start_after = event.closing_bet_after(current_tmsp)
 
                                     place_bet_thread = Timer(
-                                        start_after-90,
+                                        max(10,start_after-90),
                                         ws.twitch.make_predictions,
                                         (ws.events_predictions[event_id],),
                                     )
